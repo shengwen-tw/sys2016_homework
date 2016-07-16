@@ -44,7 +44,7 @@ int print_list(List *list)
 
 	
 	while(cur->next != NULL) {
-		printf("%d ", cur->val);
+		printf("%d\n", cur->val);
 		cur = cur->next;
 	}
 
@@ -120,25 +120,27 @@ int bubble_sort(List **head)
 	}
 } 
 
-int main(void)
+int main(int argc, char *argv[])
 {
+	int test_count = atoi(argv[1]);
+	char *test_input = argv[2];
+
+	FILE *file = fopen(test_input, "r");
+
 	List *list = NULL;
 
-	/* Linked list creation */
-	list_append(&list, 8);
-	list_append(&list, 9);
-	list_append(&list, 1);
-	list_append(&list, 4);
-	list_append(&list, 2);
-	list_append(&list, 5);
+	int num;
 
-	printf("Befor bubble sort:\n");
-	print_list(list);
+	int i;
+	for(i = 0; i < test_count; i++) {
+		fscanf(file, "%d", &num);
+		list_append(&list, num);
+	}
 
-	/* Swap elements */
+	fclose(file);
+
 	bubble_sort(&list);
 
-	printf("After bubble sort:\n");
 	print_list(list);
 
 	return 0;
